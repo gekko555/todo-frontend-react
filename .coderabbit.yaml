@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "ja-JP"
+tone_instructions: "日本語で、初学者にも伝わるやさしい口調。指摘は一般人向けの説明とエンジニア向けの説明を分けて、理由と修正方針を簡潔に示してください。"
+early_access: false
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  review_details: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 5
+    drafts: true
+    base_branches:
+      - ".*"
+    ignore_title_keywords:
+      - "WIP"
+      - "[skip review]"
+    ignore_usernames:
+      - "dependabot[bot]"
+      - "renovate[bot]"
+      - "github-actions[bot]"
+  path_instructions:
+    - path: "src/**/*.{ts,tsx}"
+      instructions: |
+        React / TypeScript 初学者の学習用リポジトリとしてレビューしてください。
+
+        コメントを書くときは、可能な限り次の2段構成にしてください。
+        - 一般人向けの説明: 何が困るのか、何のために直すのかを専門用語少なめで説明する。
+        - エンジニア向けの説明: React、TypeScript、状態管理、イベント、props、テスト観点から具体的に説明する。
+
+        重大な不具合、型安全性、Reactの基本パターン、アクセシビリティ、テスト不足を優先して指摘してください。
+        学習目的の小さなPRでは、過度な抽象化や大規模リファクタは強く求めず、次の一歩がわかる提案にしてください。
+    - path: "src/components/__tests__/**/*.{ts,tsx}"
+      instructions: |
+        テストコードは、ユーザー操作に近い観点で読めるかを重視してください。
+        実装詳細に依存しすぎるテストより、画面上の入力、クリック、表示結果、親コンポーネントへの通知を検証する方針を優先してください。
+    - path: "*.{config.ts,config.js}"
+      instructions: |
+        Vite / Vitest 設定では、このリポジトリが package.json の "type": "module" を使う前提で確認してください。
+        Node.js の ESM 環境で壊れやすい __dirname や CommonJS 前提の書き方があれば、import.meta.url を使った安全な書き方を提案してください。
+
+chat:
+  auto_reply: true

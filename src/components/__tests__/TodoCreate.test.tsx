@@ -35,8 +35,8 @@ describe('TodoCreate', () => {
     const createdTodo = mockOnTodoCreate.mock.calls[0][0] as Todo;
     expect(createdTodo.title).toBe('テストTodo');
     expect(createdTodo.completed).toBe(false);
-    expect(createdTodo.id).toBeDefined();
-    expect(createdTodo.createdAt).toBeDefined();
+    expect(createdTodo.id).toEqual(expect.any(String));
+    expect(createdTodo.createdAt).toBeInstanceOf(Date);
   });
 
   /**

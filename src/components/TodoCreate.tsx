@@ -70,7 +70,10 @@ export const TodoCreate = ({ onTodoCreate }: TodoCreateProps) => {
         <TextField
           label="タイトル"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            setTitle(e.target.value);
+            if (error) setError('');
+          }}
           placeholder="Todoのタイトルを入力"
           fullWidth
           error={!!error}
